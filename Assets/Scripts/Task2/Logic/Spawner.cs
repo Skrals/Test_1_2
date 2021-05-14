@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         cooldown = Data.cooldownTime;
+        InstanceObject();
     }
     void Update()
     {
