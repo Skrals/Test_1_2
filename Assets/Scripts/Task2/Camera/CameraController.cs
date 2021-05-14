@@ -39,6 +39,7 @@ public class CameraController : MonoBehaviour
                 target = GameObject.FindGameObjectWithTag("spawn").transform;
             }
         }
+        cam.Transform(target, offset);
     }
     void MouseInputR()
     {
@@ -48,7 +49,6 @@ public class CameraController : MonoBehaviour
             Y += Input.GetAxis("Mouse Y") * MouseSense;
             Y = Mathf.Clamp(Y, -limit, limit);
             transform.localEulerAngles = new Vector3(-Y, X, 0);
-            cam.Transform(target, offset);
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
         }
@@ -68,7 +68,7 @@ public class CameraController : MonoBehaviour
                 Debug.Log(hit.collider.gameObject.name);
                 target = hit.collider.gameObject.GetComponent<Transform>();
             }
-            cam.Transform(target, offset);
+ 
         }
     }
     void MouseScroll()
@@ -77,13 +77,11 @@ public class CameraController : MonoBehaviour
         {
             offset.z += zoom;
             cam.MouseZoom(offset, zoomMax, zoomMin);
-            cam.Transform(target, offset);
         }
         if (Input.GetAxis("Mouse ScrollWheel") < 0 && offset.z > -zoomMax)// отдалить
         {
             offset.z -= zoom;
             cam.MouseZoom(offset, zoomMax, zoomMin);
-            cam.Transform(target, offset);
         }
     }
 
